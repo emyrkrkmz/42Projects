@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 17:57:33 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/02/28 17:57:53 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/12 00:47:25 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/20 16:25:28 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(const char *s1)
 {
-	char	*str;
-	size_t	i;
 	size_t	len;
+	char	*buf;
 
-	len = ft_strlen(s) + 1;
-	str = (char *)malloc(len * sizeof(char));
-	i = 0;
-	if (str == NULL)
+	len = ft_strlen(s1);
+	buf = malloc(len + 1);
+	if (!buf)
 		return (NULL);
-	while (s[i] != '\0')
-	{
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	ft_strlcpy(buf, s1, len + 1);
+	return (buf);
 }
+/*#include <stdio.h>
+int	main()
+{
+	char	s1[] = "ilknur yarikan";
+
+	printf("%s\n", ft_strdup(s1));
+}*/

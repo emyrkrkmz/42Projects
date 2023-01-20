@@ -5,21 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/21 00:19:43 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2023/01/21 00:19:44 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2023/01/21 01:38:37 by ekorkmaz          #+#    #+#             */
+/*   Updated: 2023/01/21 01:43:21 by ekorkmaz         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	check_list_checker(int *control, t_box *a)
+void	check_list_checker(int *control, t_swap *a)
 {
 	int	i;
 
 	i = 0;
 	while (i < a->size - 1)
 	{
-		if (a->elements[i] < a->elements[i + 1])
+		if (a->array[i] < a->array[i + 1])
 			*control = 0;
 		i++;
 	}
@@ -27,34 +27,34 @@ void	check_list_checker(int *control, t_box *a)
 		*control = 1;
 }
 
-void	rotate_func(char *s, t_box *a, t_box *b)
+void	rotate_func(char *s, t_swap *a, t_swap *b)
 {
 	if (s[0] == 'r' && s[1] == 'a')
 		rotate(a, 1);
 	else if (s[0] == 'r' && s[1] == 'b')
 		rotate(b, 1);
 	else if (s[0] == 'r' && s[1] == 'r' && s[2] == 'r')
-		multi_rev_rotate(a, b, 1);
+		rev_rotate_together(a, b, 1);
 	else if (s[0] == 'r' && s[1] == 'r' && s[2] == 'a')
 		rev_rotate(a, 1);
 	else if (s[0] == 'r' && s[1] == 'r' && s[2] == 'b')
 		rev_rotate(b, 1);
 	else if (s[0] == 'r' && s[1] == 'r' && s[2] == 'r')
-		multi_rev_rotate(a, b, 1);
+		rev_rotate_together(a, b, 1);
 	else if (s[0] == 'r' && s[1] == 'r')
-		multi_rotate(a, b, 1);
+		rotate_together(a, b, 1);
 	else
 		error_message(a, b);
 }
 
-void	make_pros(t_box *a, t_box *b, char *s)
+void	make_pros(t_swap *a, t_swap *b, char *s)
 {
 	if (s[0] == 's' && s[1] == 'a')
 		swap(a, 1);
 	else if (s[0] == 's' && s[1] == 'b')
 		swap(b, 1);
 	else if (s[0] == 's' && s[1] == 's')
-		multi_swap(a, b, 1);
+		swap_together(a, b, 1);
 	else if (s[0] == 'r')
 		rotate_func(&s[0], a, b);
 	else if (s[0] == 'p' && s[1] == 'a')
@@ -65,7 +65,7 @@ void	make_pros(t_box *a, t_box *b, char *s)
 		error_message(a, b);
 }
 
-void	read_lines(t_box *a, t_box *b)
+void	read_lines(t_swap *a, t_swap *b)
 {
 	char	*tmp;
 	char	*buff;
@@ -82,18 +82,18 @@ void	read_lines(t_box *a, t_box *b)
 
 int	main(int ac, char **av)
 {
-	t_box	a;
-	t_box	b;
+	t_swap	a;
+	t_swap	b;
 	int		control;
 
 	control = -1;
 	a.stack = 'a';
 	b.stack = 'b';
 	if (ac >= 2)
-		gathering_inputs(ac, av, &a, &b);
+		more_args(ac, av, &a, &b);
 	else
 		return (0);
-	chex_double(&a, &b);
+	check_double(&a, &b);
 	read_lines(&a, &b);
 	check_list_checker(&control, &a);
 	if (control == 1 && !b.size)

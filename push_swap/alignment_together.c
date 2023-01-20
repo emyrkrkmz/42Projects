@@ -1,47 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_input.c                                      :+:      :+:    :+:   */
+/*   alignment_together.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/21 00:08:02 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2023/01/21 00:12:33 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2023/01/21 01:41:12 by ekorkmaz          #+#    #+#             */
+/*   Updated: 2023/01/21 01:41:14 by ekorkmaz         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	chex_double(t_box *a, t_box *b)
+void	swap_together(t_swap *a, t_swap *b, int control)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < a->size)
+	if (!control)
 	{
-		j = i;
-		while (j < a->size - 1)
-		{
-			if (a->elements[i] == a->elements[j++ + 1])
-				error_message(a, b);
-		}
-		i++;
+		swap(a, 1);
+		swap(b, 1);
+		ft_printf("ss\n");
 	}
 }
 
-void	check_list(t_box *a, t_box *b)
+void	rotate_together(t_swap *a, t_swap *b, int control)
 {
-	int	i;
-	int	counter;
-
-	i = -1;
-	counter = 1;
-	while (++i < a->size - 1)
+	if (!control)
 	{
-		if (a->elements[i] < a->elements[i + 1])
-			counter = 0;
+		rotate(a, 1);
+		rotate(b, 1);
+		ft_printf("rr\n");
 	}
-	if (counter == 1)
-		makefree(a, b);
+}
+
+void	rev_rotate_together(t_swap *a, t_swap *b, int control)
+{
+	if (!control)
+	{
+		rev_rotate(a, 1);
+		rev_rotate(b, 1);
+		ft_printf("rrr\n");
+	}
 }

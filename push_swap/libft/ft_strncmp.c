@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/06 19:53:53 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/01/06 19:53:57 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/09 22:54:20 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/20 12:20:05 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
+	while (*s1 && *s2 && n && (*s1 == *s2))
+	{
+		++s1;
+		++s2;
+		--n;
+	}
 	if (n == 0)
 		return (0);
-	while ((unsigned char)*s1 == (unsigned char)*s2 && *s1 != 0 && n-- > 1)
-	{
-		s1++;
-		s2++;
-	}
-	if ((unsigned char)*s1 == (unsigned char)*s2)
-		return (0);
-	else
-		return ((unsigned char)*s1 - (unsigned char)*s2);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
+/*#include <stdio.h>
+int	main()
+{
+	char	s[] = "yarikan";
+	char	c[] = "yasa";
+
+	printf("%d\n", ft_strncmp(s, c, 5));
+}*/

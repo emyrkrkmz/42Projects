@@ -3,31 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/08 14:19:33 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/01/08 14:20:25 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/10 13:50:49 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/20 15:10:22 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	i;
-	size_t	j;
 
-	i = 0;
-	if (*needle == 0)
+	if (*needle == '\0')
 		return ((char *)haystack);
-	while (haystack[i] != 0 && i < len)
+	i = ft_strlen((char *)needle);
+	while (*haystack != '\0' && len-- >= i)
 	{
-		j = 0;
-		while (haystack[i + j] == needle[j] && needle[j] != 0 && j + i < len)
-			j++;
-		if (j == ft_strlen(needle))
-			return ((char *)&haystack[i]);
-		i++;
+		if (*haystack == *needle && ft_memcmp(haystack, needle, i) == 0)
+			return ((char *)haystack);
+		haystack++;
 	}
 	return (NULL);
 }
+/*#include <stdio.h>
+int main()
+{
+ 	char	haystack [] = "Hayat! beni neden yoruyosun...";
+	char	needle [] = "ben";
+
+	printf("%s\n", ft_strnstr(haystack, "ben", 13));
+
+}*/

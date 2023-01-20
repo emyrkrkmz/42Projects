@@ -3,23 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 18:15:45 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/02/28 18:15:47 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/17 21:52:58 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/21 20:42:43 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+/*Malloc kullanarak memoryden yer ayırılır ve
+ yeni element çıktı olarak verilir. 
+ Content değişkeni ‘content’ parametresinin değeri 
+ ile başlatılır. 
+ Next değişkeni ise NULL değeri ile başlatılmalıdır.
+ #1. Yeni element oluşturacağınız content değişkeni.*/
 #include "libft.h"
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list	*root;
+	t_list	*newelement;
 
-	root = (t_list *)malloc(sizeof(t_list));
-	if (!root)
+	newelement = malloc(sizeof(t_list));
+	if (!newelement)
 		return (NULL);
-	root->content = content;
-	root->next = NULL;
-	return (root);
+	newelement->content = content;
+	newelement->next = NULL;
+	return (newelement);
 }
+/*#include <stdio.h>
+int	main()
+{
+	char	*a = "ilknur";
+
+	ft_lstnew(a);
+	printf("%s", a);
+}*/

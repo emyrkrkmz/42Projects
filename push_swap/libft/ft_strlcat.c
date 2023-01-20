@@ -3,35 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/08 14:16:09 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/01/08 14:16:43 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/08 02:33:05 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/20 09:29:25 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	size_t	total;
-	size_t	original;
+	size_t	c;
+	size_t	d;
 
-	original = size;
-	total = ft_strlen(dst) + ft_strlen(src);
-	while (*dst != 0 && size > 0)
+	if (dstsize <= ft_strlen(dst))
+		return (dstsize + ft_strlen(src));
+	c = ft_strlen(dst);
+	d = 0;
+	while (src[d] != '\0' && c + 1 < dstsize)
 	{
-		dst++;
-		size--;
+		dst[c] = src[d];
+		c++;
+		d++;
 	}
-	if (size == 0)
-		return (ft_strlen(src) + original);
-	while (*src != 0 && size > 1)
-	{
-		*dst++ = *src++;
-		size--;
-	}
-	*dst = 0;
-	return (total);
-	return (0);
+	dst[c] = '\0';
+	return (ft_strlen(dst) + ft_strlen (&src[d]));
 }
+/*#include <stdio.h>
+int	main()
+{
+	char	dst[] = "ilknur";
+	char	src[] = "yarikan";
+
+	printf("%zu\n", ft_strlcat(dst, src, 3));
+}*/

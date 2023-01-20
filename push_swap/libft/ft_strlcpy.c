@@ -3,29 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 17:49:44 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/02/28 17:50:32 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/08 00:14:19 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/20 09:11:30 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	unsigned int	i;
-	unsigned int	len_src;
+	size_t	srclen;
+	size_t	len;
 
-	i = 0;
-	len_src = ft_strlen(src);
-	if (size < 1)
-		return (len_src);
-	while (src[i] && i < size - 1)
+	srclen = ft_strlen(src);
+	if (dstsize)
 	{
-		dest[i] = src[i];
-		i++;
+		if (srclen >= dstsize)
+			len = dstsize - 1;
+		else
+			len = srclen;
+		ft_memcpy(dst, src, len);
+		dst[len] = '\0';
 	}
-	dest[i] = '\0';
-	return (len_src);
+	return (srclen);
 }
+/*#include <stdio.h>
+int	main()
+{
+	char	dst[] = "ilknur";
+	char	src[] = "yarikan";
+	char	dst2[] = "carsamba";
+	char	src2[] = "sali";
+
+	printf("%zu\n", ft_strlcpy(dst, src, 2));
+	printf("%zu\n", ft_strlcpy(dst2, src2, 2));	
+}*/

@@ -1,43 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   multiple_operators.c                               :+:      :+:    :+:   */
+/*   args_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/21 00:05:37 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2023/01/21 00:12:53 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2023/01/21 01:42:05 by ekorkmaz          #+#    #+#             */
+/*   Updated: 2023/01/21 01:42:07 by ekorkmaz         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	multi_swap(t_box *f_box, t_box *s_box, int control)
+void	check_double(t_swap *a, t_swap *b)
 {
-	if (!control)
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < a->size)
 	{
-		swap(f_box, 1);
-		swap(s_box, 1);
-		ft_printf("ss\n");
+		j = i;
+		while (j < a->size - 1)
+		{
+			if (a->array[i] == a->array[j++ + 1])
+				error_message(a, b);
+		}
+		i++;
 	}
 }
 
-void	multi_rotate(t_box *f_box, t_box *s_box, int control)
+void	check_list(t_swap *a, t_swap *b)
 {
-	if (!control)
-	{
-		rotate(f_box, 1);
-		rotate(s_box, 1);
-		ft_printf("rr\n");
-	}
-}
+	int	i;
+	int	counter;
 
-void	multi_rev_rotate(t_box *f_box, t_box *s_box, int control)
-{
-	if (!control)
+	i = -1;
+	counter = 1;
+	while (++i < a->size - 1)
 	{
-		rev_rotate(f_box, 1);
-		rev_rotate(s_box, 1);
-		ft_printf("rrr\n");
+		if (a->array[i] < a->array[i + 1])
+			counter = 0;
 	}
+	if (counter == 1)
+		free_func(a, b);
 }

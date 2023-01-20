@@ -3,24 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/06 19:35:15 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/01/06 19:36:03 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/04 02:02:17 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/19 17:06:36 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
-
+#include <stdlib.h>
+//#include <stdio.h>
 void	*ft_memset(void *b, int c, size_t len)
 {
-	char	*a;
+	unsigned char	*a;
 
-	a = (char *)b;
+	a = b;
 	while (len > 0)
 	{
-		*a++ = c;
+		*a = c;
+		a++;
 		len--;
 	}
 	return (b);
 }
+/*int	main()
+{
+	char	a[] = "ilknur";
+
+	ft_memset(a, 'x', 3);
+	printf("%s\n", a);
+}*/

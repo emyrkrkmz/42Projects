@@ -3,34 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 17:58:44 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/02/28 17:59:06 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/12 03:27:58 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/21 20:46:27 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*s1 ve s2 dizesinin birleşimi olan yeni bir dize döndürür.
+ * Malloc kullanrak hafızadan bir parça ayırılır ve 
+çıktı olarak s1 ve s2 stringlerinin birleştirilmiş hali döndürülür.
+ #1. Ön ek stringi
+ #2. Son ek stringi*/
 #include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*ret;
-	size_t	s1_len;
-	size_t	s2_len;
+	char	*newstr;
+	size_t	i;
 
-	if (!s1 && !s2)
+	if (!s1 || !s2)
 		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	ret = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!ret)
-		return (NULL);
-	ft_memcpy(ret, s1, s1_len);
-	ft_memcpy(ret + s1_len, s2, s2_len);
-	ret[s1_len + s2_len] = '\0';
-	return (ret);
+	i = 0;
+	newstr = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!newstr)
+		return (0);
+	while (*s1)
+		newstr[i++] = *s1++;
+	while (*s2)
+		newstr[i++] = *s2++;
+	newstr[i] = '\0';
+	return (newstr);
 }
+/*#include <stdio.h>
+
+int	main()
+{
+	char	a[] = "ilknur";
+	char	b[] = "yarikan";
+
+	printf("%s\n", ft_strjoin(a, b));
+}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 17:53:37 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/02/28 17:53:44 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/10 02:55:33 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/20 12:23:19 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	*str;
-	unsigned char	chr;
-	size_t			i;
+	size_t	i;
 
-	str = (unsigned char *)s;
-	chr = (unsigned char)c;
-	i = 0;
-	while (i < n)
-	{
-		if (str[i] == chr)
-		{
-			return (&str[i]);
-		}
-		i++;
-	}
-	return (0);
+	i = -1;
+	while (++i < n)
+		if (((unsigned char *)s)[i] == (unsigned char)c)
+			return ((void *)s + i);
+	return (NULL);
 }
+/*#include <stdio.h>
+int	main()
+{
+	char	s[] = "yarikan";
+	char	c[] = "ka";
+
+	printf("%s\n", ft_memchr(s, *c, 5));
+}*/

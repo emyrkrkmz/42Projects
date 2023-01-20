@@ -3,66 +3,101 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 15:55:12 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/03/01 16:16:07 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/12 10:02:37 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/21 20:49:10 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+ malloc ile yer ayrılır ve sınırlayıcı olarak 'c' karakteri
+ kullanılarak 's' bölünmesiyle elde edilen dizi dizisi
+ döndürür.
+ Malloc kullanılarak hafızada yer ayırılır ardından verilmiş
+ olan ayırıcı karakter yardımı ile string parçalara ayırılır
+ ve bu yeni stringler dönülür. Stringlerin NULL pointer
+ ile sonlanması gerekmektedir.
+ #1. Bölünecek string.
+ #2. Ayırıcı karakterler*/
 #include "libft.h"
 
-static size_t	ft_next_charset(const char *s, char c)
+size_t	ft_word_count(char const *s, char c)
 {
-	size_t	i;
+	size_t	count;
 
-	i = 0;
-	while (s[i] && s[i] != c)
-		i++;
-	return (i);
-}
-
-static size_t	ft_count_words(const char *s, char c)
-{
-	char	pre_c;
-	size_t	i;
-
-	i = 0;
-	pre_c = c;
+	count = 0;
 	while (*s)
 	{
-		if (pre_c == c && *s != c)
-			i++;
-		pre_c = *s;
-		s++;
-	}
-	return (i);
-}
-
-char	**ft_split(const char *s, char c)
-{
-	char	**tab;
-	size_t	next_charset;
-	size_t	i;
-
-	if (s == NULL)
-		return (NULL);
-	tab = malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
-	if (tab == NULL)
-		return (NULL);
-	i = 0;
-	while (*s)
-	{
-		next_charset = ft_next_charset(s, c);
-		if (next_charset)
+		if (*s != c)
 		{
-			tab[i] = ft_substr(s, 0, next_charset);
-			s += next_charset;
-			i++;
+			count++;
+			while (*s && *s != c)
+				s++;
 		}
 		else
 			s++;
 	}
-	tab[i] = NULL;
-	return (tab);
+	return (count);
 }
+
+static char	**ft_free_ptr(char **s, int i)
+{
+	while (--i >= 0 && s[i])
+	{
+		free(s[i]);
+		s[i] = NULL;
+	}
+	free(s);
+	s = NULL;
+	return (NULL);
+}
+
+const char	*nexts(char const *s, char c)
+{
+	while (*s && *s != c)
+		++s;
+	return (s);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	int		i;
+	char	*from;
+	char	**buf;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	buf = (char **)malloc((ft_word_count(s, c) + 1) * sizeof(char *));
+	if (!buf)
+		return (NULL);
+	while (*s)
+	{
+		if (*s != c)
+		{
+			from = (char *)s;
+			s = nexts(s, c);
+			buf[i++] = ft_substr(from, 0, (s - from));
+			if (!buf)
+				return (ft_free_ptr(buf, i));
+		}
+		else
+			++s;
+	}
+	buf[i] = NULL;
+	return (buf);
+}
+/*#include <stdio.h>
+int	main()
+{
+    char	a[] = "yine, yeni, yeniden..";
+    char	**res = ft_split(a, ' ');
+    int		index = 0;
+
+    while (res[index])
+    {
+        printf("%s\n", res[index]);
+        index++;
+    }
+}*/

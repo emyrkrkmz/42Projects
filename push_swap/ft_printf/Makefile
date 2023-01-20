@@ -1,23 +1,37 @@
-NAME = libftprintf.a
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -c -g
-SRCS = ft_printf.c
-OBJS = $(SRCS:%.c=%.o)
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/01/17 19:15:04 by iyarikan          #+#    #+#              #
+#    Updated: 2022/01/18 01:02:01 by iyarikan         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-all: $(NAME)
+NAME					= libftprintf.a
 
-$(NAME): $(OBJS)
-	ar -rcs $(NAME) $(OBJS)
+CC                                      = gcc
 
-%.o: %.c ft_printf.h
-	$(CC) $(CFLAGS) $< -o $@
+SRCS					= ft_printf.c ft_printf_utils.c 
 
-clean:
-	rm -rf $(OBJS)
+OBJS					= $(SRCS:%.c=%.o)
 
-fclean: clean
-	rm -rf $(NAME)
+FLAGS					= -Wall -Wextra -Werror
 
-re: fclean all
+$(NAME)		:	$(OBJS)
+			$(CC) $(FLAGS) -c $(SRCS) -I./
+			ar rc $(NAME) $(OBJS)
 
-.PHONY: all clean fclean re
+all	:	$(NAME)
+
+clean	:
+		rm -f $(OBJS)
+
+fclean	:	clean
+		rm -f $(NAME)
+
+re	:	fclean all
+
+.PHONY	:	all clean fclean re

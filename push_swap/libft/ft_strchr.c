@@ -3,27 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 18:17:49 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/02/28 18:17:50 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/08 14:15:45 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/20 09:41:04 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
-	unsigned char	*str;
-	unsigned char	chr;
-	size_t			i;
-
-	str = (unsigned char *)s;
-	chr = (unsigned char)c;
-	i = 0;
-	while (str[i] != '\0' && str[i] != chr)
-		i++;
-	if (str[i] == chr)
-		return ((char *)&s[i]);
-	return (NULL);
+	while (*(unsigned char *)s != (unsigned char)c)
+	{
+		if (!*s)
+			return (0);
+		s++;
+	}
+	return ((char *)s);
 }
+/*#include <stdio.h>
+int	main()
+{
+	char	s[] = "yarikan";
+	char	c[] = "a";
+
+	printf("%s\n", ft_strchr(s, *c));
+}*/

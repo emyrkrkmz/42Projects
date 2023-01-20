@@ -1,53 +1,77 @@
-NAME = libft.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/01/17 19:15:04 by iyarikan          #+#    #+#              #
+#    Updated: 2022/01/18 01:02:01 by iyarikan         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC = gcc
+NAME					= libft.a
 
-CFLAG =  -Wall -Werror -Wextra -c
+SRCS					= ft_atoi.c \
+					  ft_bzero.c \
+					  ft_calloc.c \
+					  ft_isalnum.c \
+					  ft_isalpha.c \
+					  ft_isascii.c \
+					  ft_isdigit.c \
+					  ft_isprint.c \
+					  ft_itoa.c \
+					  ft_memchr.c \
+					  ft_memcmp.c \
+					  ft_memcpy.c \
+					  ft_memmove.c \
+					  ft_memset.c \
+					  ft_putchar_fd.c \
+					  ft_putendl_fd.c \
+					  ft_putnbr_fd.c \
+					  ft_putstr_fd.c \
+					  ft_split.c \
+					  ft_strchr.c \
+					  ft_strdup.c \
+					  ft_strjoin.c \
+					  ft_strlcat.c \
+					  ft_strlcpy.c \
+					  ft_strlen.c \
+					  ft_strmapi.c \
+					  ft_strncmp.c \
+					  ft_strnstr.c \
+					  ft_strrchr.c \
+					  ft_strtrim.c \
+					  ft_substr.c \
+					  ft_tolower.c \
+					  ft_toupper.c ft_striteri.c 
 
-RM = rm -f
+BNS_SRCS				= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
+						  ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
+						  ft_lstclear.c fT_lstiter.c ft_lstmap.c
 
-AR = ar rc
+OBJS					= $(SRCS:%.c=%.o)
 
-MAINSRC = \
-	./ft_isalpha.c ./ft_isdigit.c ./ft_isalnum.c \
-	./ft_isascii.c ./ft_isprint.c ./ft_strlen.c \
-	./ft_memset.c ./ft_bzero.c ./ft_memcpy.c \
-	./ft_memmove.c ./ft_strlcpy.c ./ft_strlcat.c \
-	./ft_toupper.c ./ft_tolower.c ./ft_strchr.c \
-	./ft_strrchr.c ./ft_strncmp.c ./ft_memchr.c \
-	./ft_memcmp.c ./ft_strnstr.c ./ft_atoi.c \
-	./ft_calloc.c ./ft_strdup.c ./ft_substr.c \
-	./ft_strjoin.c ./ft_strtrim.c ./ft_split.c \
-	./ft_itoa.c ./ft_strmapi.c ./ft_striteri.c \
-	./ft_putchar_fd.c ./ft_putstr_fd.c ./ft_putendl_fd.c \
-	./ft_putnbr_fd.c
+BNS_OBJS				= $(BNS_SRCS:%.c=%.o)
 
-BONUSSRC = \
-	./ft_lstnew.c ./ft_lstadd_front.c ./ft_lstlast.c \
-	./ft_lstsize.c ./ft_lstadd_back.c ./ft_lstdelone.c \
-	./ft_lstclear.c ./ft_lstiter.c ./ft_lstmap.c
+FLAGS					= -Wall -Wextra -Werror
 
-MAINOBJ = $(subst .c,.o,$(MAINSRC))
-BONUOBJ = $(subst .c,.o,$(BONUSSRC))
+$(NAME)		:	$(OBJS)
+			gcc $(FLAGS) -c $(SRCS) -I./
+			ar rc $(NAME) $(OBJS)
 
-all : $(NAME)
+all	:	$(NAME)
 
-$(NAME) :  $(MAINOBJ) $(BONUOBJ)
-	$(CC) $(CFLAG) $(MAINSRC)
-	$(AR) $(NAME) $(MAINOBJ)
+bonus	:	$(NAME)
+		gcc $(FLAGS) -c $(BNS_SRCS) -I./
+		ar rc $(NAME) $(BNS_OBJS)
 
-clean : 
-	$(RM) $(MAINOBJ) $(BONUOBJ)
+clean	:
+		rm -f $(OBJS) $(BNS_OBJS)
 
-fclean : clean
-	$(RM) $(NAME)
+fclean	:	clean
+		rm -f $(NAME)
 
-bonus : $(BONUOBJ)
+re	:	fclean all
 
-$(BONUOBJ) : $(BONUSSRC)
-	$(CC) $(CFLAG) $(BONUSSRC)
-	$(AR) $(NAME) $(BONUOBJ)
-	
-re : fclean all
-
-rebonus : fclean bonus
+.PHONY	:	all clean fclean re

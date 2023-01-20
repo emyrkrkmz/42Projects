@@ -3,63 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 16:19:01 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2023/01/21 00:21:58 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/14 08:29:37 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/21 20:57:37 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+ Malloc kullanarak hafızada yer ayırılır ardından integer
+ değerini temsil eden string döndürülür.
+ Negatif sayılar negatif olarak döndürülmelidir
+ #1. Dönüştürülecek olan integer değeri
+ */
 #include "libft.h"
 
-static char	*ft_array(char *x, unsigned int number, long int len)
+static size_t	get_digits(int n)
 {
-	while (number > 0)
-	{
-		x[len--] = 48 + (number % 10);
-		number = number / 10;
-	}
-	return (x);
-}
+	size_t	count;
 
-static long int	ft_len(int n)
-{
-	int					len;
-
-	len = 0;
-	if (n <= 0)
-		len = 1;
-	while (n != 0)
+	count = 0;
+	if (n < 0 || n == 0)
+		count++;
+	while (n)
 	{
-		len++;
-		n = n / 10;
+		n /= 10;
+		count++;
 	}
-	return (len);
+	return (count);
 }
 
 char	*ft_itoa(int n)
 {
-	char				*x;
-	long int			len;
-	unsigned int		number;
-	int					sign;
+	char		*str;
+	size_t		slen;
+	const char	*digits;
 
-	sign = 1;
-	len = ft_len(n);
-	x = (char *)malloc(sizeof(char) * (len + 1));
-	if (!(x))
-		return (NULL);
-	x[len--] = '\0';
+	digits = "0123456789";
+	slen = get_digits(n);
+	str = (char *)malloc(sizeof(char) * (slen + 1));
+	if (!str)
+		return (0);
+	str[slen] = '\0';
 	if (n == 0)
-		x[0] = '0';
+		str[0] = '0';
 	if (n < 0)
+		str[0] = '-';
+	while (n)
 	{
-		sign *= -1;
-		number = n * -1;
-		x[0] = '-';
+		if (n > 0)
+			str[--slen] = digits[n % 10];
+		else
+			str[--slen] = digits[n % 10 * -1];
+		n /= 10;
 	}
-	else
-		number = n;
-	x = ft_array(x, number, len);
-	return (x);
+	return (str);
 }
+/*#include <stdio.h>
+int	main()
+{
+	printf("%s\n", ft_itoa(123));
+}*/

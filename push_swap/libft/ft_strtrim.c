@@ -3,64 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 15:39:53 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/03/01 15:43:06 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/12 08:36:43 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/21 20:52:12 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+'set' içinde ebelirtilen karakterlerin başından ve sonundan
+kaldırıldığı bir s1 kopyasını döndürür.
+Malloc kullanrak hafızada yer ayırılır ardından ana stringde
+kırpılmak istenilen karakterlerin hepsi kırpılır sonuç
+olarak elde edilen yeni string döndürülür.
+ #1. Kırpılacak string.
+ #2. Kırpılması istenen karakterler.*/
 #include "libft.h"
 
-static int	ft_getstart(const char *s, const char *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	len;
-	size_t	i;
+	size_t	slen;
 
-	len = ft_strlen(s);
-	i = 0;
-	while (i < len)
-	{
-		if (ft_strchr(set, s[i]) == 0)
-			break ;
-		i++;
-	}
-	return (i);
+	if (!s1 || !set)
+		return (0);
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	slen = ft_strlen(s1);
+	while (slen && ft_strchr(set, s1[slen]))
+		--slen;
+	return (ft_substr(s1, 0, slen + 1));
 }
-
-static int	ft_getend(const char *s, const char *set)
+/*#include <stdio.h>
+int	main()
 {
-	size_t	len;
-	size_t	i;
+	char	a[] = "2635ilk333nur23172";
+	char	b[] = "1234567";
 
-	len = ft_strlen(s);
-	i = 0;
-	while (i < len)
-	{
-		if (ft_strchr(set, s[len - i - 1]) == 0)
-			break ;
-		i++;
-	}
-	return (len - i);
-}
-
-char	*ft_strtrim(char const *s, char const *set)
-{
-	int		start;
-	int		end;
-	char	*str;
-
-	if (s == NULL)
-		return (NULL);
-	if (set == NULL)
-		return (ft_strdup(s));
-	start = ft_getstart(s, set);
-	end = ft_getend(s, set);
-	if (start >= end)
-		return (ft_strdup(""));
-	str = (char *)malloc(sizeof(char) * (end - start + 1));
-	if (str == NULL)
-		return (NULL);
-	ft_strlcpy(str, s + start, end - start + 1);
-	return (str);
-}
+	printf("%s\n", ft_strtrim(a, b));
+}*/

@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/21 00:19:50 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2023/01/21 00:19:51 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/06/13 21:51:51 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/06/13 21:51:53 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	makefree(t_box *a, t_box *b)
+void	free_func(t_swap *a, t_swap *b)
 {
-	free(a->elements);
-	free(b->elements);
+	free(a->array);
+	free(b->array);
 	exit(1);
 }
 
-void	error_message(t_box *a, t_box *b)
+void	error_message(t_swap *a, t_swap *b)
 {
 	write(2, "Error\n", 6);
-	makefree(a, b);
+	free_func(a, b);
 }

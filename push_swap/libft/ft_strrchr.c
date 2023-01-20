@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 18:24:39 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/02/28 18:24:41 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/08 15:00:28 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/20 12:17:11 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,24 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char	*ptr;
+	char	*last;
 
-	ptr = NULL;
-	while (*s != '\0')
+	last = 0;
+	if (!c)
+		return ((char *)s + ft_strlen(s));
+	while (*s)
 	{
-		if (*s == c)
-			ptr = (char *)s;
+		if (*s == (unsigned char)c)
+			last = (char *)s;
 		s++;
 	}
-	if (c == '\0')
-		return ((char *)s);
-	return (ptr);
+	return (last);
 }
+/*#include <stdio.h>
+int	main()
+{
+	char	s[] = "yarikan";
+	char	c[] = "";
+
+	printf("%s\n", ft_strrchr(s, *c));
+}*/

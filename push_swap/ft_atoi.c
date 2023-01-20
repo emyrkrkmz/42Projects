@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoix.c                                         :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/21 00:08:16 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2023/01/21 00:08:17 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2023/01/21 01:41:28 by ekorkmaz          #+#    #+#             */
+/*   Updated: 2023/01/21 01:41:29 by ekorkmaz         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoix(char *s, t_box *a, t_box *b)
+int	ft_atoim(char *s, t_swap *a, t_swap *b)
 {
 	int		i;
 	long	res;

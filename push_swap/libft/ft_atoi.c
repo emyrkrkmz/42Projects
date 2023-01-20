@@ -3,52 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 18:25:22 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/02/28 18:25:25 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/11 13:54:43 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/20 15:19:56 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int	ft_check(const char *str, int i, int x)
-{
-	long	number;
-	long	temp;
-
-	number = 0;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		temp = number;
-		number *= 10;
-		number += str[i] - '0';
-		if (temp > number)
-		{
-			if (x == -1)
-				return (0);
-			if (x == 1)
-				return (-1);
-		}
-		i++;
-	}
-	return (number * x);
-}
+#include <limits.h>
 
 int	ft_atoi(const char *str)
 {
+	long	result;
 	int		i;
-	int		x;
 
-	i = 0;
-	x = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	result = 0;
+	i = 1;
+	while (((*str >= 9 && *str <= 13) || *str == 32) && *str)
+		str++;
+	if (*str == '-')
 	{
-		if (str[i] == '-')
-			x = -1;
-		i++;
+		i = -1;
+		str++;
 	}
-	return (ft_check(str, i, x));
+	else if (*str == '+')
+		str++;
+	while (*str >= 48 && *str <= 57)
+	{
+		result = result * 10 + *str - '0';
+		str++;
+		if (result * i > INT_MAX)
+			return (-1);
+		else if (result * i < INT_MIN)
+			return (0);
+	}
+	return (i * result);
 }
+/*#include <stdio.h>
+int	main()
+{
+	char	str[] = "-123";
+
+	printf("%d\n", ft_atoi(str));
+}*/

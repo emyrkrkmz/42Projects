@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   preparing_to_array.c                               :+:      :+:    :+:   */
+/*   count.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/21 00:05:12 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2023/01/21 00:12:59 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2023/01/21 01:40:09 by ekorkmaz          #+#    #+#             */
+/*   Updated: 2023/01/21 01:40:11 by ekorkmaz         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	**argv_to_array(int argc, char **argv)
+char	**__arg_array(int argc, char **argv)
 {
 	char	*tmp;
 	char	*string;
@@ -36,23 +36,23 @@ char	**argv_to_array(int argc, char **argv)
 	return (new_string);
 }
 
-void	gathering_inputs(int argc, char **argv, t_box *a, t_box *b)
+void	more_args(int argc, char **argv, t_swap *a, t_swap *b)
 {
 	int		i;
 	char	**new_string;
 
 	i = 0;
-	new_string = argv_to_array(argc, argv);
+	new_string = __arg_array(argc, argv);
 	while (new_string[i])
 		i++;
 	a->size = i;
 	b->size = 0;
-	a->elements = malloc(sizeof(int) * a->size);
-	b->elements = malloc(sizeof(int) * a->size);
+	a->array = malloc(sizeof(int) * a->size);
+	b->array = malloc(sizeof(int) * a->size);
 	i = -1;
 	while (new_string[++i])
 	{
-		a->elements[a->size - 1 - i] = ft_atoix(new_string[i], a, b);
+		a->array[a->size - 1 - i] = ft_atoim(new_string[i], a, b);
 		free(new_string[i]);
 	}
 	free(new_string);

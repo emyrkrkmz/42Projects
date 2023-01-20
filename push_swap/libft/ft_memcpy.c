@@ -3,30 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 18:32:39 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/02/28 19:32:17 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/04 08:14:27 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/19 17:30:07 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	unsigned char	*sr;
-	unsigned char	*dst;
-	size_t			i;
+	size_t	i;
 
-	sr = (unsigned char *)src;
-	dst = (unsigned char *)dest;
 	i = 0;
-	if (!dest && !src)
-		return (NULL);
-	while (i < n)
+	if (dst != src && n)
 	{
-		dst[i] = sr[i];
-		i++;
+		while (i < n)
+		{
+			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+			i++;
+		}
 	}
 	return (dst);
 }
+/*#include <stdio.h>
+int	main()
+{
+	char	a[] = "ilknur";
+	char	b[] = "yarikan";
+
+	ft_memcpy(a, b, 3);
+	printf("%s\n", a);
+}*/

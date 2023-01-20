@@ -3,26 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekorkmaz <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*   By: iyarikan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 16:42:19 by ekorkmaz          #+#    #+#             */
-/*   Updated: 2022/02/28 16:44:44 by ekorkmaz         ###   ########.tr       */
+/*   Created: 2022/01/17 22:47:28 by iyarikan          #+#    #+#             */
+/*   Updated: 2022/01/20 18:35:43 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*Listedeki eleman sayısını bulur.
+ #1. Listenin başlangıcı*/
 #include "libft.h"
 
 int	ft_lstsize(t_list *lst)
 {
-	int		i;
-	t_list	*iter;
+	int	sayac;
 
-	i = 0;
-	iter = lst;
-	while (iter != NULL)
+	if (!lst)
+		return (0);
+	sayac = 0;
+	while (lst)
 	{
-		iter = iter->next;
-		i++;
+		sayac++;
+		lst = lst->next;
 	}
-	return (i);
+	return (sayac);
 }
+/*#include <stdio.h>
+int main()
+{
+    t_list **test = malloc(sizeof(t_list *));;
+    t_list *a = malloc(sizeof(t_list));
+    t_list *b= malloc(sizeof(t_list));
+    t_list *c= malloc(sizeof(t_list));
+    a->next = b;
+    b->content = "ilknur";
+    b->next = c;
+
+    *test = a;
+    ft_lstsize(*test);
+    printf("%d",ft_lstsize(*test));
+
+}*/
